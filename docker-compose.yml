@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  db:
+    image: postgres:latest
+    networks:
+      - rinha-network
+    container_name: rinhajava2023_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rinha
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
+    volumes:
+      - ./migrations:/docker-entrypoint-initdb.d
+    # DEFINIR REQUISITOS ABAIXO
+    # deploy:
+
+
+
+networks:
+  rinha-network:
+    driver: bridge
