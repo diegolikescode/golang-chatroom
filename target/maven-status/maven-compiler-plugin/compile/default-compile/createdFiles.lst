@@ -1,0 +1,9 @@
+com/rinhajava/app/utils/exceptions/DatabaseConnectionException.class
+com/rinhajava/app/config/PostgresConnection.class
+com/rinhajava/app/domain/Pessoa.class
+com/rinhajava/app/utils/Query.class
+com/rinhajava/app/Main.class
+com/rinhajava/app/domain/dto/PessoaCadastroDB.class
+com/rinhajava/app/http/HelloHandler.class
+com/rinhajava/app/http/Server.class
+com/rinhajava/app/http/CriaPessoaHandler.class

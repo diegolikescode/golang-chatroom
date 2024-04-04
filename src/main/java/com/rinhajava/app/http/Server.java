@@ -1,11 +1,14 @@
 package com.rinhajava.app.http;
 
+import com.rinhajava.app.config.PostgresConnection;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class Server {
+
+    PostgresConnection connection = new PostgresConnection();
 
     public HttpServer server;
 
@@ -15,7 +18,7 @@ public class Server {
 
     public void startServerHandlers() {
         this.server.createContext("/", new HelloHandler());
-        this.server.createContext("/pessoas", new CriaPessoaHandler());
+        this.server.createContext("/pessoas", new CriaPessoaHandler(connection.conn));
 
         server.setExecutor(null);
         server.start();

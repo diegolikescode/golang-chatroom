@@ -12,18 +12,16 @@ public class PostgresConnection {
 
     public PostgresConnection() {
         try {
-            Class.forName("org.postgresql.Driver");
             String url = "jdbc:postgresql://localhost:5432/rinha";
             String username = "postgres", password = "postgres";
             this.conn = DriverManager.getConnection(url, username, password);
 
             if (this.conn == null) {
                 throw new DatabaseConnectionException("Erro ao conectar com o postgres: " + url);
+            } else {
+                System.out.println("Conectado com banco com SUCESSO");
             }
 
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getClass().getName() + " PostgreSQL JDBC driver not found");
-            e.printStackTrace();
         } catch (SQLException e) {
             System.out.println(e.getClass().getName() + " Falha ao tentar conectar com banco de dados");
             e.printStackTrace();

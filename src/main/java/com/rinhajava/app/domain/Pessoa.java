@@ -1,6 +1,7 @@
 package com.rinhajava.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Data;
 
 @Data
@@ -17,4 +18,12 @@ public class Pessoa {
 
     @JsonProperty("stack")
     private String[] stack;
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }
