@@ -47,7 +47,8 @@ BEGIN
 	RETURN QUERY 
 	SELECT p.id, p.apelido, p.nome, p.nascimento, p.stack
 	FROM pessoas p
-	WHERE LOWER(p.campo_query) LIKE LOWER(CONCAT('%', query, '%'));
+	WHERE LOWER(p.campo_query) LIKE LOWER(CONCAT('%', query, '%'))
+	LIMIT 50;
 END;
 
 $$ LANGUAGE plpgsql;

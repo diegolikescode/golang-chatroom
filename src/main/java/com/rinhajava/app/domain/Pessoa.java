@@ -1,11 +1,15 @@
 package com.rinhajava.app.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import lombok.Data;
+
+import java.util.UUID;
 
 @Data
 public class Pessoa {
+
+    @JsonProperty("id")
+    private UUID id;
 
     @JsonProperty("apelido")
     private String apelido;
@@ -19,11 +23,15 @@ public class Pessoa {
     @JsonProperty("stack")
     private String[] stack;
 
-    public String getNome() {
-        return this.nome;
+    public Pessoa() {
+
     }
 
-    public void setNome(String nome) {
+    public Pessoa(UUID id, String apelido, String nome, String nascimento, String[] stack) {
+        this.id = id;
+        this.apelido = apelido;
         this.nome = nome;
+        this.nascimento = nascimento;
+        this.stack = stack;
     }
 }
