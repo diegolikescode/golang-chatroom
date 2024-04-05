@@ -58,6 +58,11 @@ public class PessoaHandler implements HttpHandler {
                 try {
                     String uuid = url.split("/")[url.split("/").length - 1];
                     Pessoa p = detalhesUsecase.handleUsecase(uuid);
+                    if (p == null) {
+                        exchange.sendResponseHeaders(404, 0);
+                        flushRequest(exchange);
+                        return;
+                    }
                     String json = mapper.writeValueAsString(p);
 
                     exchange.sendResponseHeaders(200, json.getBytes().length);
