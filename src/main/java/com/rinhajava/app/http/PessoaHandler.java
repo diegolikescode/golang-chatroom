@@ -42,12 +42,10 @@ public class PessoaHandler implements HttpHandler {
         if (exchange.getRequestMethod().equals("POST")) {
             try {
                 preparePost(exchange);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 exchange.sendResponseHeaders(422, 0);
-                flushRequest(exchange);
+                exchange.close();
             }
         } else if (exchange.getRequestMethod().equals("GET")) {
             String url = exchange.getRequestURI().getPath();
@@ -60,22 +58,16 @@ public class PessoaHandler implements HttpHandler {
                     Pessoa p = detalhesUsecase.handleUsecase(uuid);
                     if (p == null) {
                         exchange.sendResponseHeaders(404, 0);
-                        flushRequest(exchange);
+                        exchange.close();
                         return;
                     }
                     String json = mapper.writeValueAsString(p);
 
                     exchange.sendResponseHeaders(200, json.getBytes().length);
-                    OutputStream os = exchange.getResponseBody();
-                    os.write(json.getBytes());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                    exchange.sendResponseHeaders(404, 0);
+                    exchange.getResponseBody().write(json.getBytes());
                 } catch (Exception e) {
                     e.printStackTrace();
                     exchange.sendResponseHeaders(404, 0);
-                } finally {
-                    flushRequest(exchange);
                 }
             } else {
                 try {
@@ -84,25 +76,26 @@ public class PessoaHandler implements HttpHandler {
                     if(pathSplit.length == 2) {
                         List<Pessoa> pessoas = buscaTermoUsecase.handleUsecase(pathSplit[1]);
                         String json = mapper.writeValueAsString(pessoas);
+
                         exchange.getResponseHeaders().set("Content-Type", "application/json");
                         exchange.sendResponseHeaders(200, json.getBytes().length);
-                        OutputStream os = exchange.getResponseBody();
-                        os.write(json.getBytes());
+                        exchange.getResponseBody().write(json.getBytes());
+                        exchange.close();
                     } else {
                         exchange.sendResponseHeaders(400, 0);
+                        exchange.close();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     exchange.sendResponseHeaders(400, 0);
-                } finally {
-                    flushRequest(exchange);
+                    exchange.close();
                 }
             }
         }
     }
 
     private void preparePost(HttpExchange exchange) throws IOException, SQLException {
-        PessoaCadastroDB p = null;
+        PessoaCadastroDB p;
         try {
             module.addDeserializer(String.class, new RequestBodyDeserializer());
             mapper.registerModule(module);
@@ -114,19 +107,18 @@ public class PessoaHandler implements HttpHandler {
         } catch (Exception e) {
             e.printStackTrace();
             exchange.sendResponseHeaders(422, 0);
-            flushRequest(exchange);
+            exchange.close();
             return;
         }
         String id = handlePost(p);
-        exchange.getResponseHeaders().set("Location", "/pessoas/"+id);
 
         if (id == null) {
             exchange.sendResponseHeaders(422, 0);
         } else {
+            exchange.getResponseHeaders().set("Location", "/pessoas/"+id);
             exchange.sendResponseHeaders(201, 0);
         }
-        flushRequest(exchange);
-
+        exchange.close();
     }
 
     private String handlePost(PessoaCadastroDB p) throws SQLException {
@@ -159,18 +151,10 @@ public class PessoaHandler implements HttpHandler {
         }
     }
 
-    private void flushRequest(HttpExchange exchange) throws IOException {
-        OutputStream os = exchange.getResponseBody();
-        os.flush();
-        exchange.close();
-        os.close();
-    }
-
     private boolean verifyRequestBody(PessoaCadastroDB p) {
         if (p.getNome() == null || p.getApelido() == null) {
             return false;
         }
-
 
         return true;
     }

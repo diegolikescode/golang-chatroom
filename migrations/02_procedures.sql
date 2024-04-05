@@ -52,3 +52,14 @@ BEGIN
 END;
 
 $$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION count_pessoas()
+RETURNS TABLE(contagem INT8) AS $$
+
+BEGIN
+    RETURN QUERY
+    SELECT COUNT(*) AS contagem FROM pessoas;
+END;
+
+$$ LANGUAGE plpgsql;

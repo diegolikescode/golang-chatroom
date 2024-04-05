@@ -19,6 +19,7 @@ public class Server {
     public void startServerHandlers() {
         this.server.createContext("/", new HelloHandler());
         this.server.createContext("/pessoas", new PessoaHandler(connection.conn));
+        this.server.createContext("/contagem-pessoas", new PessoaContagemHandler(connection.conn));
 
         server.setExecutor(null);
         server.start();

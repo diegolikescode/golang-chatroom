@@ -3,7 +3,8 @@ package com.rinhajava.app.utils;
 public enum Query {
     INSERT_PESSOA("SELECT * FROM insert_pessoa(?, ?, ?, ?, ?)"),
     SELECT_BY_ID("SELECT * FROM select_by_id(?)"),
-    SELECT_BY_T("SELECT * FROM select_by_t(?)");
+    SELECT_BY_T("SELECT * FROM select_by_t(?)"),
+    COUNT_PESSOAS("SELECT * FROM count_pessoas()");
 
     private final String sql;
 
