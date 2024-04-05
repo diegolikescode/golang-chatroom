@@ -41,12 +41,4 @@ public class PessoaContagemHandler implements HttpHandler {
             e.printStackTrace();
         }
     }
-
-    private void flushRequest(HttpExchange exchange) throws IOException {
-        try {
-            exchange.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
