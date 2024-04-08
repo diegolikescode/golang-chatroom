@@ -15,9 +15,7 @@ import com.sun.net.httpserver.HttpHandler;
 import org.postgresql.util.PSQLException;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

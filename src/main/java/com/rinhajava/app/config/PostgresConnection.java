@@ -5,6 +5,7 @@ import com.rinhajava.app.utils.exceptions.DatabaseConnectionException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class PostgresConnection {
 
@@ -12,12 +13,13 @@ public class PostgresConnection {
 
     public PostgresConnection() {
         try {
-            String url = "jdbc:postgresql://localhost:5432/rinha";
-            String username = "postgres", password = "postgres";
-            this.conn = DriverManager.getConnection(url, username, password);
+            String uri = PropertiesLoader.getProperty("DB_URI");
+            String username =  PropertiesLoader.getProperty("DB_USER");
+            String password = PropertiesLoader.getProperty("DB_PASS");
+            this.conn = DriverManager.getConnection(uri, username, password);
 
             if (this.conn == null) {
-                throw new DatabaseConnectionException("Erro ao conectar com o postgres: " + url);
+                throw new DatabaseConnectionException("Erro ao conectar com o postgres: " + uri);
             } else {
                 System.out.println("Conectado com banco com SUCESSO");
             }
@@ -30,6 +32,8 @@ public class PostgresConnection {
             e.printStackTrace();
         } finally {
             // close conn (conn.close()) ???
+            // it would be nice to do conn pooling
         }
     }
 }
+

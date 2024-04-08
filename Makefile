@@ -4,7 +4,7 @@ dale:
 
 compose:
 	docker-compose down --volumes --remove-orphans
-	docker-compose up --build
+	docker-compose up --build -d
 
 build:
 	mvn install
