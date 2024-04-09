@@ -40,11 +40,14 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.14</version> 
+      <version>42.2.24</version>
     </dependency>
   </dependencies>
 
   <build>
+    <finalName>
+      rinha-java
+    </finalName>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
@@ -73,6 +76,13 @@
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <archive>
+              <manifest>
+                <mainClass>com.rinhajava.app.Main</mainClass>
+              </manifest>
+            </archive>
+          </configuration>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>

@@ -1,16 +1,21 @@
-FROM maven:3.8.3-openjdk-17
-# FROM openjdk:17-alpine
+FROM maven:3.8.3-openjdk-17 AS builder
 
 WORKDIR /app
 
-# COPY pom.xml /app/pom.xml
-# COPY src /app/src
+# lib/postgresql-42.7.3.jar
 
-# RUN mvn -f /app/pom.xml clean package
+COPY pom.xml pom.xml
+COPY mvnw mvnw
+COPY .mvn .mvn
 
-COPY ./target/rinhajava-0.0.69.jar /app/rinhajava.jar
+COPY src ./src
 
-EXPOSE 6969
+RUN mvn dependency:resolve
+RUN mvn clean install
 
-CMD ["java", "-jar", "rinhajava.jar"]
+# EXPOSE 6969
+
+# COPY /app/target/rinha-java.jar /app/rinha-java.jar
+
+CMD ["java", "-jar", "/app/target/rinha-java.jar"]
 
