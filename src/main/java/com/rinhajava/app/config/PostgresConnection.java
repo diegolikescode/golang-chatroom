@@ -2,6 +2,7 @@ package com.rinhajava.app.config;
 
 import com.rinhajava.app.utils.exceptions.DatabaseConnectionException;
 
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ public class PostgresConnection {
             String uri = PropertiesLoader.getProperty("DB_URI");
             String username =  PropertiesLoader.getProperty("DB_USER");
             String password = PropertiesLoader.getProperty("DB_PASS");
+
             this.conn = DriverManager.getConnection(uri, username, password);
 
             if (this.conn == null) {
@@ -33,6 +35,18 @@ public class PostgresConnection {
         } finally {
             // close conn (conn.close()) ???
             // it would be nice to do conn pooling
+        }
+    }
+
+    private String pingPostgres() {
+        try {
+            InetAddress inet = InetAddress.getByName("db");
+            System.out.println("PINGING DATABASE SUCCESSFULLY, ADDRESS:: "+inet.getHostAddress());
+            return inet.getHostAddress();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Exception error::: " + e.getMessage());
+            return "fuck";
         }
     }
 }
