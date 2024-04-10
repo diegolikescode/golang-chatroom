@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strings"
 
@@ -112,19 +113,17 @@ func BuscarTermoPessoa (c fiber.Ctx) error {
 }
 
 func ContagemPessoas (c fiber.Ctx) error {
-    var err error
-
     c.Set("Content-Type", "text/html")
     c.SendStatus(http.StatusOK)
 
     conn := config.Connection
-    var count int
-    row, err := conn.Query("SELECT * FROM count_pessoas()"); 
-    if err != nil {
-	c.SendString(string(count))
+    var count string
+    row, _ := conn.Query("SELECT * FROM count_pessoas()"); 
+    row.Next()
+    if err := row.Scan(&count); err != nil {
+	log.Println(err)
+	return c.SendString("0")
     }
-
-    row.Scan(&count)
-    return c.SendString(string(count))
+    return c.SendString(count)
 }
 
