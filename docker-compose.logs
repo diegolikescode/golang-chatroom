@@ -1,0 +1,106 @@
+Attaching to rinha2023q1_sql_nginx_1, rinha_sql_1, rinha_sql_2, rinha2023_db
+[33mnginx_1  |[0m /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+[33mnginx_1  |[0m /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+[33mnginx_1  |[0m /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+[33mnginx_1  |[0m 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+[33mnginx_1  |[0m 10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+[33mnginx_1  |[0m /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+[33mnginx_1  |[0m /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+[33mnginx_1  |[0m /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+[33mnginx_1  |[0m /docker-entrypoint.sh: Configuration complete; ready for start up
+[36mrinha2023_db |[0m The files belonging to this database system will be owned by user "postgres".
+[36mrinha2023_db |[0m This user must also own the server process.
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m The database cluster will be initialized with locale "en_US.utf8".
+[36mrinha2023_db |[0m The default database encoding has accordingly been set to "UTF8".
+[36mrinha2023_db |[0m The default text search configuration will be set to "english".
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m Data page checksums are disabled.
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m fixing permissions on existing directory /var/lib/postgresql/data ... ok
+[36mrinha2023_db |[0m creating subdirectories ... ok
+[36mrinha2023_db |[0m selecting dynamic shared memory implementation ... posix
+[36mrinha2023_db |[0m selecting default max_connections ... 100
+[36mrinha2023_db |[0m selecting default shared_buffers ... 128MB
+[36mrinha2023_db |[0m selecting default time zone ... Etc/UTC
+[36mrinha2023_db |[0m creating configuration files ... ok
+[36mrinha2023_db |[0m running bootstrap script ... ok
+[36mrinha2023_db |[0m performing post-bootstrap initialization ... ok
+[36mrinha2023_db |[0m syncing data to disk ... ok
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m Success. You can now start the database server using:
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m     pg_ctl -D /var/lib/postgresql/data -l logfile start
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m initdb: warning: enabling "trust" authentication for local connections
+[36mrinha2023_db |[0m initdb: hint: You can change this by editing pg_hba.conf or using the option -A, or --auth-local and --auth-host, the next time you run initdb.
+[36mrinha2023_db |[0m waiting for server to start....2024-04-10 03:50:45.067 UTC [48] LOG:  starting PostgreSQL 16.2 (Debian 16.2-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.073 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.092 UTC [51] LOG:  database system was shut down at 2024-04-10 03:50:42 UTC
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.101 UTC [48] LOG:  database system is ready to accept connections
+[36mrinha2023_db |[0m  done
+[36mrinha2023_db |[0m server started
+[36mrinha2023_db |[0m CREATE DATABASE
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/01_create_pessoas.sql
+[36mrinha2023_db |[0m CREATE EXTENSION
+[36mrinha2023_db |[0m CREATE TABLE
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m /usr/local/bin/docker-entrypoint.sh: running /docker-entrypoint-initdb.d/02_procedures.sql
+[36mrinha2023_db |[0m CREATE FUNCTION
+[36mrinha2023_db |[0m CREATE FUNCTION
+[36mrinha2023_db |[0m CREATE FUNCTION
+[36mrinha2023_db |[0m CREATE FUNCTION
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m waiting for server to shut down...2024-04-10 03:50:45.386 UTC [48] LOG:  received fast shutdown request
+[36mrinha2023_db |[0m .2024-04-10 03:50:45.391 UTC [48] LOG:  aborting any active transactions
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.394 UTC [48] LOG:  background worker "logical replication launcher" (PID 54) exited with exit code 1
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.395 UTC [49] LOG:  shutting down
+[36mrinha2023_db |[0m 2024-04-10 03:50:45.402 UTC [49] LOG:  checkpoint starting: shutdown immediate
+[36mrinha2023_db |[0m .2024-04-10 03:50:46.406 UTC [49] LOG:  checkpoint complete: wrote 927 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.060 s, sync=0.903 s, total=1.012 s; sync files=305, longest=0.030 s, average=0.003 s; distance=4288 kB, estimate=4288 kB; lsn=0/191AAB0, redo lsn=0/191AAB0
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.421 UTC [48] LOG:  database system is shut down
+[36mrinha2023_db |[0m  done
+[36mrinha2023_db |[0m server stopped
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m PostgreSQL init process complete; ready for start up.
+[36mrinha2023_db |[0m 
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.519 UTC [1] LOG:  starting PostgreSQL 16.2 (Debian 16.2-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.519 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.519 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.530 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.544 UTC [68] LOG:  database system was shut down at 2024-04-10 03:50:46 UTC
+[36mrinha2023_db |[0m 2024-04-10 03:50:46.554 UTC [1] LOG:  database system is ready to accept connections
+[35mrinha_sql_2 |[0m start program
+[35mrinha_sql_2 |[0m 2024/04/10 03:51:13 Database CONNECTED, URL:host=db port=5432 user=postgres password=postgres dbname=rinha sslmode=disable
+[35mrinha_sql_2 |[0m 
+[35mrinha_sql_2 |[0m     _______ __             
+[35mrinha_sql_2 |[0m    / ____(_) /_  ___  _____
+[35mrinha_sql_2 |[0m   / /_  / / __ \/ _ \/ ___/
+[35mrinha_sql_2 |[0m  / __/ / / /_/ /  __/ /    
+[35mrinha_sql_2 |[0m /_/   /_/_.___/\___/_/          v3.0.0-beta.2
+[35mrinha_sql_2 |[0m --------------------------------------------------
+[35mrinha_sql_2 |[0m INFO Server started on: 	http://127.0.0.1:6969 (bound on host 0.0.0.0 and port 6969)
+[35mrinha_sql_2 |[0m INFO Total handlers count: 	5
+[35mrinha_sql_2 |[0m INFO Prefork: 			Disabled
+[35mrinha_sql_2 |[0m INFO PID: 			1
+[35mrinha_sql_2 |[0m INFO Total process count: 	1
+[35mrinha_sql_2 |[0m 
+[32mrinha_sql_1 |[0m start program
+[32mrinha_sql_1 |[0m 2024/04/10 03:51:13 Database CONNECTED, URL:host=db port=5432 user=postgres password=postgres dbname=rinha sslmode=disable
+[32mrinha_sql_1 |[0m 
+[32mrinha_sql_1 |[0m     _______ __             
+[32mrinha_sql_1 |[0m    / ____(_) /_  ___  _____
+[32mrinha_sql_1 |[0m   / /_  / / __ \/ _ \/ ___/
+[32mrinha_sql_1 |[0m  / __/ / / /_/ /  __/ /    
+[32mrinha_sql_1 |[0m /_/   /_/_.___/\___/_/          v3.0.0-beta.2
+[32mrinha_sql_1 |[0m --------------------------------------------------
+[32mrinha_sql_1 |[0m INFO Server started on: 	http://127.0.0.1:6969 (bound on host 0.0.0.0 and port 6969)
+[32mrinha_sql_1 |[0m INFO Total handlers count: 	5
+[32mrinha_sql_1 |[0m INFO Prefork: 			Disabled
+[32mrinha_sql_1 |[0m INFO PID: 			1
+[32mrinha_sql_1 |[0m INFO Total process count: 	1
+[32mrinha_sql_1 |[0m 

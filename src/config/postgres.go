@@ -27,7 +27,7 @@ func PostgresConn () {
     if err != nil {
         log.Fatal("FATAL:: error in the database connection", err.Error())
     } else {
-        log.Print("Database CONNECTED")
+	log.Print("Database CONNECTED, URL:", connInfo)
     }
 }
 
