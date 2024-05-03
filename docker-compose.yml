@@ -17,8 +17,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: 5
-          memory: 2GB
+          cpus: 11
+          memory: 10GB
 
   api1: &api
     image: rinha_sql:latest
