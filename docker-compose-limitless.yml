@@ -2,6 +2,8 @@ version: '3.5'
 services:
   db:
     image: postgres:latest
+    networks:
+      - rinha-network
     container_name: rinha2023_db
     environment:
       - POSTGRES_USER=postgres
@@ -9,50 +11,42 @@ services:
       - POSTGRES_DB=rinha
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-    command: -c config_file=/etc/postgresql.conf
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
     volumes:
-      - ./postgresql.conf:/etc/postgresql.conf
       - ./migrations:/docker-entrypoint-initdb.d
-    network_mode: host
-    deploy:
-      resources:
-        limits:
-          cpus: 5
-          memory: 2GB
 
   api1: &api
     image: rinha_sql:latest
-    environment:
-      - PORT=6969
     restart: always
+    networks:
+      - rinha-network
     container_name: rinha_sql_1
     depends_on:
       db:
         condition: service_healthy
-    network_mode: host
-    # deploy:
-      # resources:
-        # limits:
-          # cpus: .04
-          # memory: 900MB
+    expose:
+      - "6969"
   
   api2:
     <<: *api
-    environment:
-      - PORT=4200
     container_name: rinha_sql_2
 
   nginx:
     image: nginx:latest
+    networks:
+      - rinha-network
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - api1
       - api2
-    network_mode: host
-    # deploy:
-      # resources:
-        # limits:
-          # cpus: .01
-          # memory: 200MB
+    ports:
+      - "9999:9999"
+
+networks:
+  rinha-network:
+      driver: bridge
 

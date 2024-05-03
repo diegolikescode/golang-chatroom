@@ -1,0 +1,2 @@
+load-test/results/**
+!load-test/results/.gitkeep

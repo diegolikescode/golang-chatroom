@@ -2,6 +2,7 @@ package server
 
 import (
 	"log"
+	"os"
 
 	"github.com/gofiber/fiber/v3"
 )
@@ -19,6 +20,14 @@ func Server() {
     app.Get("/pessoas", BuscarTermoPessoa)
     app.Get("/contagem-pessoas", ContagemPessoas)
 
-    log.Fatal(app.Listen(":6969"))
+    port, exists := os.LookupEnv("PORT")
+    if !exists {
+	log.Fatal("PORT env var not declared")
+    } else {
+	log.Println("oh wait, THERE IS A PORT")
+	log.Println(port)
+    }
+
+    log.Fatal(app.Listen(":"+port))
 }
 
