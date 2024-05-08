@@ -1,7 +1,8 @@
 version: '3.5'
+
 services:
   db:
-    image: postgres:latest
+    image: postgres:15
     container_name: rinha2023_db
     environment:
       - POSTGRES_USER=postgres
@@ -13,12 +14,13 @@ services:
     volumes:
       - ./postgresql.conf:/etc/postgresql.conf
       - ./migrations:/docker-entrypoint-initdb.d
-    network_mode: host
+    networks:
+        - rinha-network
     deploy:
       resources:
         limits:
-          cpus: 11
-          memory: 10GB
+          cpus: .7
+          memory: 1GB
 
   api1: &api
     image: rinha_sql:latest
@@ -29,12 +31,13 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    network_mode: host
-    # deploy:
-      # resources:
-        # limits:
-          # cpus: .04
-          # memory: 900MB
+    networks:
+        - rinha-network
+    deploy:
+      resources:
+        limits:
+          cpus: .2
+          memory: 0.5GB
   
   api2:
     <<: *api
@@ -49,10 +52,21 @@ services:
     depends_on:
       - api1
       - api2
-    network_mode: host
-    # deploy:
-      # resources:
-        # limits:
-          # cpus: .01
-          # memory: 200MB
+    networks:
+        - rinha-network
+    ports:
+      - "9999:9999"
+    expose:
+      - "9999"
+    deploy:
+      resources:
+        limits:
+          cpus: .25
+          memory: 0.5GB
+
+## LETS TEST VIRTUAL NETWORK vs HOST
+networks:
+  rinha-network:
+    name: rinha-network
+    driver: bridge
 

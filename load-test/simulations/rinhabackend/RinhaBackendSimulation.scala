@@ -5,7 +5,6 @@ import scala.util.Random
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 
-// not running this one
 class RinhaBackendSimulation
   extends Simulation {
 

@@ -1,21 +1,15 @@
 CREATE OR REPLACE FUNCTION insert_pessoa(
-    p_apelido VARCHAR(32), p_nome VARCHAR(100), p_nascimento VARCHAR(15), p_stack VARCHAR(300), p_campo_query VARCHAR(300))
-RETURNS TABLE(user_id UUID) AS $$
-DECLARE
-    novo_user_id UUID;
+    p_id VARCHAR(100), p_apelido VARCHAR(32), p_nome VARCHAR(100), p_nascimento VARCHAR(15), p_stack VARCHAR(300), p_campo_query VARCHAR(300))
+RETURNS void AS $$
 BEGIN
-
     IF EXISTS (
         SELECT 1 FROM pessoas 
         WHERE apelido = p_apelido) THEN
             RAISE EXCEPTION 'USER_ALREADY_EXISTS';
         END IF;
 
-    INSERT INTO pessoas (apelido, nome, nascimento, stack , campo_query)
-    VALUES (p_apelido, p_nome, p_nascimento, p_stack, p_campo_query)
-    RETURNING id INTO novo_user_id;
-
-    RETURN QUERY SELECT novo_user_id;
+    INSERT INTO pessoas (id, apelido, nome, nascimento, stack , campo_query)
+    VALUES (p_id, p_apelido, p_nome, p_nascimento, p_stack, p_campo_query);
 END;
 
 $$ LANGUAGE plpgsql;
@@ -62,3 +56,4 @@ BEGIN
 END;
 
 $$ LANGUAGE plpgsql;
+

@@ -10,6 +10,7 @@ import (
 	"github.com/diegolikescode/rinha2023q1_sql/src/config"
 	"github.com/diegolikescode/rinha2023q1_sql/src/model"
 	"github.com/gofiber/fiber/v3"
+	"github.com/google/uuid"
 )
 
 func validaCorpoPessoa(p model.Pessoa) bool {
@@ -45,22 +46,24 @@ func CriarPessoa (c fiber.Ctx) error {
 	return c.SendStatus(http.StatusUnprocessableEntity)
     }
 
-    m:= PessoaToCadastro(body)
+    newUserID := uuid.New().String()
 
-    conn := config.Connection
-    row, err := conn.Query("SELECT * FROM insert_pessoa($1, $2, $3, $4, $5)", m.Apelido, m.Nome, m.Nascimento, m.Stack, m.CampoBusca); if err != nil {
+    go func() {
+	m:= PessoaToCadastro(body)
+
+	conn := config.Connection
+
+	/*
+	_, err := conn.Query("SELECT * FROM insert_pessoa($1, $2, $3, $4, $5)", m.Apelido, m.Nome, m.Nascimento, m.Stack, m.CampoBusca); if err != nil {
 	return c.SendStatus(http.StatusBadRequest)
-    }
+	*/
 
-    var id string
-    for row.Next() {
-	if err := row.Scan(&id); err != nil {
-	    return c.SendStatus(http.StatusBadRequest)
-	}
-    }
+	conn.Query(
+	    "SELECT * FROM insert_pessoa($1, $2, $3, $4, $5, $6)", 
+	    newUserID, m.Apelido, m.Nome, m.Nascimento, m.Stack, m.CampoBusca)
+    }()
 
-    row.Close()
-    c.Set("Location", "/pessoas/"+id)
+    c.Set("Location", "/pessoas/"+newUserID)
     return c.SendStatus(http.StatusCreated)
 }
 
