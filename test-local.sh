@@ -13,7 +13,7 @@ sh $GATLING_BIN_DIR/gatling.sh -rm local -s RinhaBackendSimulation \
     -sf $GATLING_WORKSPACE/simulations \
     -rsf $GATLING_WORKSPACE/resources
 
-SAVE_CONTAGEM="$RESULTS_WORKSPACE/contagem-pessoas-$(date).log"
+SAVE_CONTAGEM="$RESULTS_WORKSPACE/contagem-pessoas-$(date +%s).log" ## WILL IT WORK? IDK
 curl -v "http://localhost:9999/contagem-pessoas" > "$SAVE_CONTAGEM"
 echo "resultado da contagem em $SAVE_CONTAGEM\n"
 cat "$SAVE_CONTAGEM"
