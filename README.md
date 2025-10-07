@@ -1,4 +1,2 @@
-# RINHA
-
-> SHIEESH
+# GO CHATROOM
 
