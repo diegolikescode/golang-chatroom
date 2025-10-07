@@ -1,7 +1,7 @@
 # Project: **ParrotChat** — Minimal, Snappy, Observable WebSocket Chat
 
 ## Premise
-A lightweight, real-time chatroom where users join temporary “rooms” and exchange messages over WebSockets. It’s small enough to finish in days, yet rich enough to demonstrate clean architecture, context-aware shutdown, testing, and observability.
+A lightweight, real-time chatroom where users join temporary “rooms” and exchange messages over WebSockets.
 
 ---
 
