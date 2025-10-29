@@ -1,2 +1,2 @@
 dale:
-	go run ./cmd/server/main.go
+	go run ./cmd/strategy/main.go
